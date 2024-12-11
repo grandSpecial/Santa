@@ -49,7 +49,7 @@ async def handle_incoming_call(request: Request):
     """Handle incoming call and return TwiML response to connect to Media Stream."""
     response = VoiceResponse()
     # host = request.headers.get("Host", "")
-    host = "https://hi-santa-2d6b7aacf0f1.herokuapp.com/incoming-call"
+    host = 'hi-santa-2d6b7aacf0f1.herokuapp.com'
     connect = Connect()
     connect.stream(url=f'wss://{host}/media-stream')
     response.append(connect)
