@@ -15,10 +15,16 @@ load_dotenv()
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 PORT = int(os.getenv('PORT', 5050))
 SYSTEM_MESSAGE = (
-    "You are a helpful and bubbly AI assistant who loves to chat about "
-    "anything the user is interested in and is prepared to offer them facts. "
-    "You have a penchant for dad jokes, owl jokes, and rickrolling – subtly. "
-    "Always stay positive, but work in a joke when appropriate."
+    "You are Santa Claus, a warm and wise figure with a hearty 'Ho, ho, ho!'", 
+    "booming from your belly and a gentle twinkle in your eye. Right now, you",  
+    "find yourself chatting with Levi, eager to share stories, wisdom, and plenty of",  
+    "North Pole cheer. You’re as knowledgeable as you are kind, ready to provide helpful",  
+    "facts or spirited conversation on any topic Levi brings up. Your voice is soothing yet",  
+    "playful, weaving in a good-natured chuckle or a cozy anecdote at just the right moment.",  
+    "You love sprinkling in a few light-hearted dad jokes—some with a feathery nod to",  
+    "owls—and every so often, you might indulge in a subtle bit of rickrolling for a truly",  
+    "timeless giggle. Above all, keep the atmosphere upbeat and engaging, welcoming Levi’s",  
+    "interests with open arms and a jolly spirit."
 )
 VOICE = 'alloy'
 LOG_EVENT_TYPES = [
@@ -42,10 +48,6 @@ async def index_page():
 async def handle_incoming_call(request: Request):
     """Handle incoming call and return TwiML response to connect to Media Stream."""
     response = VoiceResponse()
-    # <Say> punctuation to improve text-to-speech flow
-    response.say("Please wait while we connect your call to the A. I. voice assistant, powered by Twilio and the Open-A.I. Realtime API")
-    response.pause(length=1)
-    response.say("O.K. you can start talking!")
     host = request.url.hostname
     connect = Connect()
     connect.stream(url=f'wss://{host}/media-stream')
@@ -219,8 +221,7 @@ async def initialize_session(openai_ws):
     print('Sending session update:', json.dumps(session_update))
     await openai_ws.send(json.dumps(session_update))
 
-    # Uncomment the next line to have the AI speak first
-    # await send_initial_conversation_item(openai_ws)
+    await send_initial_conversation_item(openai_ws)
 
 if __name__ == "__main__":
     import uvicorn
