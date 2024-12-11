@@ -26,7 +26,7 @@ SYSTEM_MESSAGE = (
     timeless giggle. Above all, keep the atmosphere upbeat and engaging, welcoming Levi’s
     interests with open arms and a jolly spirit."""
 )
-VOICE = 'onyx'
+VOICE = 'ash'
 LOG_EVENT_TYPES = [
     'error', 'response.content.done', 'rate_limits.updated',
     'response.done', 'input_audio_buffer.committed',
